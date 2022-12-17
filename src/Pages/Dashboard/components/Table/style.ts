@@ -50,6 +50,21 @@ export const TableTransactions = styled.table`
     border-radius: 0.25rem;
     background-color: white;
     transition: background-color 200ms;
+    position: relative;
+
+    button {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translate(0, -50%);
+      background-color: transparent;
+      border: 0;
+
+      img {
+        width: 1.5rem;
+        object-fit: contain;
+      }
+    }
 
     &:hover {
       background-color: ${darken(0.1, '#FFF')};

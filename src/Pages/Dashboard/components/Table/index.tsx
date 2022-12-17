@@ -1,6 +1,12 @@
+import { Transaction } from '../..';
 import { Container, TableTransactions } from './style';
+import xmark from '../../../../assets/circle-xmark-regular.svg';
 
-export function Table() {
+interface TableProps {
+  Transactions: Transaction[];
+}
+
+export function Table({ Transactions }: TableProps) {
   return (
     <Container>
       <TableTransactions>
@@ -13,24 +19,22 @@ export function Table() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Aluguel</td>
-            <td className="despesa">- R$ 1250.00</td>
-            <td>Casa</td>
-            <td>7/12/2022</td>
-          </tr>
-          <tr>
-            <td>Salario dezembro</td>
-            <td className="receita">R$ 8750.00</td>
-            <td>Trabalho</td>
-            <td>12/12/2022</td>
-          </tr>
-          <tr>
-            <td>Compras no supermercado</td>
-            <td className="despesa">- R$ 250.00</td>
-            <td>Comida</td>
-            <td>16/12/2022</td>
-          </tr>
+          {Transactions.map((transaction) => (
+            <tr key={transaction.id}>
+              <td>{transaction.titulo}</td>
+              <td className={transaction.tipo}>
+                {transaction.tipo === 'despesa' && '- '}
+                {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
+                  transaction.valor
+                )}
+              </td>
+              <td>{transaction.categoria}</td>
+              <td>{new Intl.DateTimeFormat('pt-BR').format(new Date(transaction.criadoEm))}</td>
+              <button>
+                <img src={xmark} alt="Deletar registro" />
+              </button>
+            </tr>
+          ))}
         </tbody>
       </TableTransactions>
     </Container>

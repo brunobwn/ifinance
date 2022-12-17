@@ -1,5 +1,6 @@
 import { Container } from './style';
 import logoSvg from '../../../../assets/scale-unbalanced-flip-solid.svg';
+import { Transaction } from '../..';
 
 interface HeaderProps {
   openNewTransactionModal: () => void;
