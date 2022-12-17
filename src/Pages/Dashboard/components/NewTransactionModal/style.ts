@@ -23,7 +23,7 @@ export const NewTransactionForm = styled.form`
     padding: 0 1rem;
     height: 4rem;
     border-radius: 0.25rem;
-    background-color: var(--green);
+    background-color: var(--blue);
     color: white;
     font-weight: 600;
     text-transform: uppercase;
@@ -32,7 +32,7 @@ export const NewTransactionForm = styled.form`
     margin-top: 1rem;
 
     &:hover {
-      background-color: ${darken(0.1, '#17C3B2')};
+      background-color: ${darken(0.1, '#227C9D')};
     }
   }
 
