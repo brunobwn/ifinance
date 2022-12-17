@@ -1,10 +1,11 @@
+import { Dashboard } from './Pages/Dashboard';
 import { GlobalStyle } from './styles/global';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <p>testeee</p>
+      <Dashboard />
     </>
   );
 }
