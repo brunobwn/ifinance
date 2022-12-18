@@ -5,21 +5,26 @@ import circleUpSvg from '../../../../assets/circle-up-regular.svg';
 import sackDollarSvg from '../../../../assets/sack-dollar-solid.svg';
 import { Transaction } from '../..';
 
-interface TotalsProps {
+interface SummaryProps {
   children?: ReactHTML[];
   Transactions: Transaction[];
 }
 
-export function Totals({ Transactions }: TotalsProps) {
-  const total = { receita: 0, despesa: 0, geral: 0 };
-  Transactions.forEach((transaction) => {
-    if (transaction.tipo === 'receita') {
-      total.receita += transaction.valor;
-    } else {
-      total.despesa += transaction.valor;
-    }
-    total.geral += transaction.valor;
-  }, 0);
+export function Summary({ Transactions }: SummaryProps) {
+  const summary = Transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.tipo === 'receita') {
+        acc.receita += transaction.valor;
+        acc.geral += transaction.valor;
+      } else {
+        acc.despesa += transaction.valor;
+        acc.geral -= transaction.valor;
+      }
+
+      return acc;
+    },
+    { receita: 0, despesa: 0, geral: 0 }
+  );
 
   return (
     <TotalsContainer>
@@ -29,7 +34,7 @@ export function Totals({ Transactions }: TotalsProps) {
         </p>
         <p className="receita">
           {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
-            total.receita
+            summary.receita
           )}
         </p>
       </div>
@@ -38,9 +43,8 @@ export function Totals({ Transactions }: TotalsProps) {
           Despesas <img src={circleUpSvg} alt="Despesas" />
         </p>
         <p className="despesa">
-          -
           {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
-            total.despesa
+            summary.despesa * -1
           )}
         </p>
       </div>
@@ -48,9 +52,9 @@ export function Totals({ Transactions }: TotalsProps) {
         <p>
           Total <img src={sackDollarSvg} alt="Total" />
         </p>
-        <p>
+        <p className={summary.geral < 0 ? 'despesa' : undefined}>
           {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
-            total.geral
+            summary.geral
           )}
         </p>
       </div>

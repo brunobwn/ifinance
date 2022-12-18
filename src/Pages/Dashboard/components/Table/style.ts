@@ -59,6 +59,9 @@ export const TableTransactions = styled.table`
       transform: translate(0, -50%);
       background-color: transparent;
       border: 0;
+      display: none;
+      align-items: center;
+      transition: display 200ms;
 
       img {
         width: 1.5rem;
@@ -68,6 +71,10 @@ export const TableTransactions = styled.table`
 
     &:hover {
       background-color: ${darken(0.1, '#FFF')};
+
+      button {
+        display: flex;
+      }
     }
   }
 

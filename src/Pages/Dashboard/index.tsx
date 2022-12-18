@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { ReactEventHandler, useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { Table } from './components/Table';
-import { Totals } from './components/Totals';
+import { Summary } from './components/Summary';
 import { NewTransactionModal } from './components/NewTransactionModal';
 import { Container } from './style';
 
@@ -28,7 +28,14 @@ export function Dashboard() {
   }, []);
 
   function addNewTransaction(newTransaction: Transaction) {
+    const transactionsData = [...Transactions, newTransaction];
+    localStorage.setItem('transactions', JSON.stringify(transactionsData));
     setTransactions([...Transactions, newTransaction]);
+  }
+
+  function handleDeleteTransaction(id: string) {
+    const transactionsData = Transactions.filter((transaction) => transaction.id !== id);
+    setTransactions(transactionsData);
   }
 
   function closeNewTransactionModal() {
@@ -43,8 +50,8 @@ export function Dashboard() {
     <>
       <Header openNewTransactionModal={openNewTransactionModal} />
       <Container>
-        <Totals Transactions={Transactions} />
-        <Table Transactions={Transactions} />
+        <Summary Transactions={Transactions} />
+        <Table Transactions={Transactions} handleDeleteTransaction={handleDeleteTransaction} />
       </Container>
       <NewTransactionModal
         isNewTransactionModalOpen={isNewTransactionModalOpen}
