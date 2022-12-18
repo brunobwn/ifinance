@@ -20,7 +20,7 @@ export function NewTransactionModal({
   addNewTransaction,
 }: NewTransactionModalProps) {
   const [Titulo, setTitulo] = useState('');
-  const [Valor, setValor] = useState(0);
+  const [Valor, setValor] = useState<number | undefined>(undefined);
   const [Categoria, setCategoria] = useState('');
   const [Tipo, setTipo] = useState<'receita' | 'despesa'>('receita');
 
@@ -30,7 +30,7 @@ export function NewTransactionModal({
     const newTransaction = {
       id: uuid(),
       titulo: Titulo,
-      valor: Valor,
+      valor: Valor ? Valor : 0,
       categoria: Categoria,
       tipo: Tipo,
       criadoEm: new Date(),
@@ -40,7 +40,7 @@ export function NewTransactionModal({
     closeNewTransactionModal();
 
     setTitulo('');
-    setValor(0);
+    setValor(undefined);
     setCategoria('');
     setTipo('receita');
   }
@@ -67,6 +67,8 @@ export function NewTransactionModal({
         <input
           type="number"
           name="valor"
+          min="0.00"
+          step="0.01"
           placeholder="Valor"
           value={Valor}
           onChange={(e) => setValor(Number(e.target.value))}
