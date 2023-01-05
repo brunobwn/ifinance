@@ -1,6 +1,6 @@
 # Projeto de estudo em React
 
-Uma simples interface de controle de gastos, onde é feita o balanço total entre entradas e saídas.
+Criei uma interface para gerenciar gastos com o objetivo de praticar os conceitos do React, utilizando em conjunto com o módulo de estilização styled-components para desenvolver a interface. Armazenei os dados no localStorage do navegador para que o usuário possa acessá-los rapidamente. O sistema calcula o balanço entre entradas e saídas, dando uma visão geral dos gastos e permitindo um controle financeiro eficiente.
 
 Deploy disponivel: [Vercel](https://ifinance-iota.vercel.app)
 
